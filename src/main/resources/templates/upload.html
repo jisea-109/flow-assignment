@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>파일 업로드</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>파일 업로드</h1>
+
+        <form method="POST" enctype="multipart/form-data" action="/upload">
+            <input type="file" name="file" required>
+            <button type="submit">업로드</button>
+        </form>
+
+        <div class="message" th:if="${message}">
+            <p th:text="${message}"></p>
+        </div>
+
+        <h3>현재 제한된 확장자 목록:</h3>
+        <div class="extension-list">
+            <div class="extension-item" th:each="extension : ${selectedExtensions}">
+                <span th:text="${extension}"></span>
+            </div>
+        </div>
+
+        <a href="/select-extension">파일 확장자 관리 페이지로 이동</a>
+    </div>
+
+</body>
+</html>
