@@ -32,7 +32,6 @@ public class FlowController {
 	 @GetMapping("/upload")
 	 public String showUploadForm(Model model) {
 		model.addAttribute("selectedExtensions", selectedExtensions); // 제한된 확장자 html로 전달
-		System.out.println(addedExtensions);
 		return "upload";
 	}
 
@@ -51,10 +50,11 @@ public class FlowController {
 				 model.addAttribute("message", "업로드가 제한된 파일 유형입니다: " + fileExtension);
 				 return "upload";
 			 }
+			 else { // 파일 업로드 성공 처리 (업로드 구현 X)
+				model.addAttribute("message", "파일 업로드 성공: " + fileName);
+			 }
 		 }
- 
-		 // 파일 업로드 성공 처리 (업로드 구현 X)
-		 model.addAttribute("message", "파일 업로드 성공: " + fileName);
+		 model.addAttribute("selectedExtensions", selectedExtensions);
 		 return "upload";
 	 }
  

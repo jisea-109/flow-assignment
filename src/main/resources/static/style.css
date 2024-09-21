@@ -1,16 +1,15 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: Arial, Helvetica, sans-serif, sans-serif;
     margin: 40px;
     background-color: #f4f4f4;
 }
 .container {
-    margin: 0 100pt;
+    margin: 100pt 250pt;
 }
 
 h1 {
     color: #333;
 }
-
 form {
     margin-top: 20px;
 }
@@ -18,6 +17,7 @@ form {
 input[type="file"] {
     margin-bottom: 20px;
     padding: 8px;
+    font-size: 15px;
 }
 
 input[type="text"] {
@@ -64,7 +64,8 @@ a:hover {
 }
 
 .extension-list {
-    margin-top : 30px;
+    margin-left: 130px; 
+    margin-top: -50px;
     display: flex;
     flex-wrap: wrap;
 }
@@ -78,6 +79,7 @@ a:hover {
     background-color: #ddd;
     border-radius: 5px;
     text-align: left; 
+    font-size: 15pt;
 }
 .delete-button {
     margin-left: 5px; 
@@ -97,4 +99,7 @@ a:hover {
     width: 15px;
     height: 15px;
     margin-right: 10px;
+}
+.save-extension {
+    margin-top: 10px;
 }
