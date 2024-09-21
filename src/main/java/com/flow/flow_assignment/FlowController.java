@@ -48,7 +48,6 @@ public class FlowController {
 			 // 파일 확장자가 확장자 리스트에 있는지 확인
 			 if (selectedExtensions.contains(fileExtension)) {
 				 model.addAttribute("message", "업로드가 제한된 파일 유형입니다: " + fileExtension);
-				 return "upload";
 			 }
 			 else { // 파일 업로드 성공 처리 (업로드 구현 X)
 				model.addAttribute("message", "파일 업로드 성공: " + fileName);
