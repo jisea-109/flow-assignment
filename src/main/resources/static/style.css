@@ -1,0 +1,100 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 40px;
+    background-color: #f4f4f4;
+}
+.container {
+    margin: 0 100pt;
+}
+
+h1 {
+    color: #333;
+}
+
+form {
+    margin-top: 20px;
+}
+
+input[type="file"] {
+    margin-bottom: 20px;
+    padding: 8px;
+}
+
+input[type="text"] {
+    padding: 8px;
+    margin-right: 10px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.message {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #e7f3fe;
+}
+
+a {
+    display: inline-block;
+    margin-top: 20px;
+    color: #1a73e8;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.extension-label {
+    display: inline-block;
+    max-width: flex;
+    white-space: normal; /* 줄바꿈 허용 */
+    font-size: 15pt; 
+    text-align: left;
+}
+
+.extension-list {
+    margin-top : 30px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.extension-item {
+    display: flex; /* Flexbox 사용 */
+    align-items: center; 
+    flex: 0 1 auto; /* 항목 크기를 자동으로 조정 */
+    padding: 5px;
+    margin: 3px;
+    background-color: #ddd;
+    border-radius: 5px;
+    text-align: left; 
+}
+.delete-button {
+    margin-left: 5px; 
+    margin-top: 3px;
+    background-color: #ffffff00; 
+    border: none;
+    color: rgb(0, 0, 0);
+    padding: 2px 6px;
+    cursor: pointer;
+    font-size: 8pt;
+}
+
+.delete-button:hover {
+    background-color: #706f6f; 
+}
+.large-checkbox {
+    width: 15px;
+    height: 15px;
+    margin-right: 10px;
+}

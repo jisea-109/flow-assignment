@@ -9,13 +9,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class FlowController {
 	
-	private Set<String> fixedExtensions = new HashSet<>();
-    private Set<String> addedExtensions = new HashSet<>();
-    private Set<String> selectedExtensions = new HashSet<>();
+	private Set<String> fixedExtensions = new HashSet<>(7); // 고정 확장자
+    private Set<String> addedExtensions = new HashSet<>(200); // 커스텀 확장자
+    private Set<String> selectedExtensions = new HashSet<>(207); // 확장자 차단 목록
 
     public FlowController() { // 고정 확장자 리스트
         fixedExtensions.add("bat");
@@ -30,7 +31,8 @@ public class FlowController {
 	 // 첫 번째 페이지: 파일 업로드 페이지
 	 @GetMapping("/upload")
 	 public String showUploadForm(Model model) {
-		model.addAttribute("selectedExtensions", selectedExtensions); // 제한된 확장자 전달
+		model.addAttribute("selectedExtensions", selectedExtensions); // 제한된 확장자 html로 전달
+		System.out.println(addedExtensions);
 		return "upload";
 	}
 
@@ -51,7 +53,7 @@ public class FlowController {
 			 }
 		 }
  
-		 // 파일 업로드 성공 처리 (여기선 업로드 로직 생략)
+		 // 파일 업로드 성공 처리 (업로드 구현 X)
 		 model.addAttribute("message", "파일 업로드 성공: " + fileName);
 		 return "upload";
 	 }
@@ -61,33 +63,44 @@ public class FlowController {
 	 public String showExtensionForm(Model model) {
 		 model.addAttribute("fixedExtensions", fixedExtensions); // 고정 확장자
 		 model.addAttribute("addedExtensions", addedExtensions); // 추가된 확장자
-		 model.addAttribute("selectedExtensions", selectedExtensions); // 선택된 확장자
+		 model.addAttribute("selectedExtensions", selectedExtensions); // 확장자 차단 목록
 		 return "extension";
 	 }
  
 	 // 파일 확장자 추가 처리
 	 @PostMapping("/add-extension")
-	 public String addExtension(@RequestParam("extension") String extension, Model model) {
-		 addedExtensions.add(extension.toLowerCase());
-		 model.addAttribute("message", extension + " 확장자가 추가되었습니다.");
+	 public String addExtension(@RequestParam("extension") String extension, RedirectAttributes redirectAttributes) {
+	 	 if (addedExtensions.contains(extension.toLowerCase())) { // 커스텀 확장자 중복 확인
+			 redirectAttributes.addFlashAttribute("message", "이미 추가된 확장자입니다.");
+		 } else { // 커스텀 확장자 추가
+			 addedExtensions.add(extension.toLowerCase());
+			 selectedExtensions.add(extension.toLowerCase()); // upload.html에 표시될 selectedExntensions 에도 추가
+			 redirectAttributes.addFlashAttribute("message", extension + " 확장자가 추가되었습니다.");
+		 }
 		 return "redirect:/select-extension";
 	 }
  
 	 // 파일 확장자 선택 처리 (체크박스로 선택된 확장자 차단)
 	 @PostMapping("/select-extension")
-	 public String handleSelectedExtensions(@RequestParam(value = "selected", required = false) Set<String> selected, Model model) {
+	 public String handleSelectedExtensions( 
+			@RequestParam(value = "fixed-selected", required = false) Set<String> fixedSelected,
+			Model model) {
 		 selectedExtensions.clear(); // 이전에 선택된 확장자 db 초기화
-		 if (selected != null) {
-			 selectedExtensions.addAll(selected);
+		 if (fixedSelected != null) {
+			selectedExtensions.addAll(fixedSelected);
+		 }
+		 if (addedExtensions != null) { // 커스텀 확장자도 selectedExtensions에 다시 추가
+			selectedExtensions.addAll(addedExtensions);
 		 }
 		 return "redirect:/select-extension";
 	 }
  
 	 // 선택된 커스텀 확장자 삭제 처리
 	 @PostMapping("/remove-extension")
-	 public String removeExtension(@RequestParam("extension") String extension, Model model) {
-		 addedExtensions.remove(extension.toLowerCase());
-		 model.addAttribute("message", extension + " 확장자가 삭제되었습니다.");
+	 public String removeExtension(@RequestParam("extension") String extension, RedirectAttributes redirectAttributes) {
+		 addedExtensions.remove(extension);
+		 selectedExtensions.remove(extension); // upload.html에 전달되는 selectedExtension hash에서도 삭제 처리
+		 redirectAttributes.addFlashAttribute("message", extension + " 확장자가 삭제되었습니다.");
 		 return "redirect:/select-extension";
 	 }
  }

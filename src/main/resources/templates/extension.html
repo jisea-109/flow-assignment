@@ -9,60 +9,40 @@
     <div class="container">
         <h1>파일 확장자 관리</h1>
 
-        <form method="POST" action="/add-extension">
-            <label for="extension">확장자 추가:</label>
-            <input type="text" id="extension" name="extension" required>
-            <button type="submit">추가</button>
-        </form>
-
         <div class="message" th:if="${message}">
             <p th:text="${message}"></p>
         </div>
 
-        <h3>고정 확장자:</h3>
-        <button type="button" id="select-all-fixed">전체 선택</button>
         <form method="POST" action="/select-extension">
+            <h3>고정 확장자:</h3>
+            <button type="button" id="select-all-fixed">전체 선택</button>
             <div class="extension-list">
                 <div class="extension-item" th:each="extension : ${fixedExtensions}">
-                    <input type="checkbox" name="fixed-selected" th:value="${extension}" th:checked="${selectedExtensions.contains(extension)}" class="large-checkbox">
+                    <input type="checkbox" name="fixed-selected" th:value="${extension}" th:checked="${selectedExtensions.contains(extension)}" class="large-checkbox fixed-extension">
                     <label th:text="${extension}" class="extension-label"></label>
                 </div>
             </div>
-        </form>
-
-        <h3>커스텀 확장자:</h3>
-        <button type="button" id="select-all-added">전체 선택</button>
-        <div class="extension-list">
-            <div class="extension-item" th:each="extension : ${addedExtensions}">
-                <form method="POST" action="/remove-extension">
-                    <input type="checkbox" name="added-selected" th:value="${extension}" th:checked="${selectedExtensions.contains(extension)}" class="large-checkbox">
+            <form method="POST" action="/add-extension">
+                <label for="extension">확장자 추가:</label>
+                <input type="text" id="extension" name="extension" maxlength="20" required pattern="[A-Za-z0-9]+" title="영어로 입력해주시길 바랍니다.">
+                <button type="submit">추가</button>
+            </form>
+            <h3>커스텀 확장자:</h3>
+            <div class="extension-list">
+                <div class="extension-item" th:each="extension : ${addedExtensions}">
                     <label th:text="${extension}" class="extension-label"></label>
-                    <input type="hidden" name="extension" th:value="${extension}">
-                    <button type="submit" class="delete-button">X</button>
-                </form>
+                    <button type="submit" formaction="/remove-extension" name="extension" th:value="${extension}" class="delete-button">X</button>
+                </div>
             </div>
-        </div>
-
-        <form method="POST" action="/select-extension">
             <button type="submit">확장자 선택 저장</button>
         </form>
 
         <a href="/upload">파일 업로드 페이지로 이동</a>
     </div>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // 고정 확장자 전체 선택 버튼 
+        document.addEventListener("DOMContentLoaded", function() { // 고정 확장자 전체 선택 버튼 
             document.getElementById('select-all-fixed').onclick = function() {
                 const checkboxes = document.querySelectorAll('input[name="fixed-selected"]');
-                const allChecked = Array.from(checkboxes).every(checkbox => checkbox.checked);
-                checkboxes.forEach(checkbox => {
-                    checkbox.checked = !allChecked; 
-                });
-            };
-
-            // 커스텀 확장자 전체 선택 버튼
-            document.getElementById('select-all-added').onclick = function() {
-                const checkboxes = document.querySelectorAll('input[name="added-selected"]');
                 const allChecked = Array.from(checkboxes).every(checkbox => checkbox.checked);
                 checkboxes.forEach(checkbox => {
                     checkbox.checked = !allChecked; 
