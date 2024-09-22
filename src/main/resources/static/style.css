@@ -4,7 +4,12 @@ body {
     background-color: #f4f4f4;
 }
 .container {
-    margin: 100pt 250pt;
+    max-width: 1000px; /* 최대 너비 설정 */
+    margin: auto; /* 중앙 정렬 */
+    padding: 20px; /* 내부 여백 */
+    background-color: #fff; /* 배경색 */
+    border-radius: 8px; /* 모서리 둥글게 */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
 }
 
 h1 {
@@ -21,15 +26,20 @@ input[type="file"] {
 }
 
 input[type="text"] {
+    margin-bottom: 20px;
     padding: 8px;
     margin-right: 10px;
+    border: 2px solid #ccc; 
+    border-radius: 4px; 
+
 }
 
 button {
     background-color: #4CAF50;
     color: white;
-    padding: 10px 20px;
+    padding: 10px 15px;
     border: none;
+    border-radius: 4px;
     cursor: pointer;
 }
 
@@ -38,8 +48,9 @@ button:hover {
 }
 
 .message {
-    margin-top: 20px;
-    padding: 10px;
+    position: fixed;
+    margin: 70px 400px;
+    padding: 10px 15px;
     border: 1px solid #ccc;
     background-color: #e7f3fe;
 }
