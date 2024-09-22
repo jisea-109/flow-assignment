@@ -44,14 +44,9 @@ public class FlowController {
 		if (fileName != null) {
 			// 파일 확장자 추출
 			String fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
-			String mimeType = file.getContentType();
 			// 파일 확장자가 확장자 리스트에 있는지 확인
 			if (selectedExtensions.contains(fileExtension)) {
 				model.addAttribute("message", "업로드가 제한된 파일 유형입니다: " + fileExtension);
-			}
-			else if (!isValidMimeType(mimeType)) {
-				model.addAttribute("message", "지원하지 않는 파일 형식입니다: " + mimeType);
-				return "upload";
 			}
 			else { // 파일 업로드 성공 처리 (업로드 구현 X)
 			model.addAttribute("message", "파일 업로드 성공: " + fileName);
@@ -117,21 +112,5 @@ public class FlowController {
 		selectedExtensions.remove(extension); // upload.html에 전달되는 selectedExtension hash에서도 삭제 처리
 		redirectAttributes.addFlashAttribute("message", extension + " 확장자가 삭제되었습니다.");
 		return "redirect:/select-extension";
-	}
-	private boolean isValidMimeType(String mimeType) {
-		// 허용된 MIME 타입 목록
-		String[] allowedMimeTypes = {
-			"image/jpeg",
-			"image/png",
-			"application/pdf",
-			"text/plain"
-			// 추가 허용 타입을 여기에 적기
-		};
-		for (String allowedType : allowedMimeTypes) {
-			if (allowedType.equals(mimeType)) {
-				return true;
-			}
-		}
-		return false;
 	}
 }
