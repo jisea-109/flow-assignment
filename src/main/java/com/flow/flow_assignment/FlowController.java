@@ -83,8 +83,8 @@ public class FlowController {
 	// 파일 확장자 추가 처리
 	@PostMapping("/add-extension")
 	public String addExtension(@RequestParam("extension") String extension, RedirectAttributes redirectAttributes) {
-		if (!extension.toLowerCase().matches("^[a-zA-Z0-9/]+$")) {
-			redirectAttributes.addFlashAttribute("message", "확장자에는 알파벳과 숫자 그리고 '/' 만 사용할 수 있습니다.");
+		if (!extension.toLowerCase().matches("^[a-zA-Z0-9/]+$") || extension.contains("//")) {
+			redirectAttributes.addFlashAttribute("message", "확장자에는 알파벳과 숫자 그리고 단일로 '/' 만 사용할 수 있습니다.");
 			return "redirect:/select-extension";
 		} 
 		else if (extension.toLowerCase().length() > 20) {

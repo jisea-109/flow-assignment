@@ -1,15 +1,16 @@
 body {
     font-family: Arial, Helvetica, sans-serif, sans-serif;
-    margin: 40px;
+    margin-top: 100px;
     background-color: #f4f4f4;
 }
 .container {
-    max-width: 1000px; /* 최대 너비 설정 */
-    margin: auto; /* 중앙 정렬 */
-    padding: 20px; /* 내부 여백 */
-    background-color: #fff; /* 배경색 */
-    border-radius: 8px; /* 모서리 둥글게 */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+    position: relative;
+    max-width: 1000px; 
+    margin: auto; 
+    padding: 40px; 
+    background-color: #fff; 
+    border-radius: 8px; 
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
 }
 
 h1 {
@@ -31,11 +32,10 @@ input[type="text"] {
     margin-right: 10px;
     border: 2px solid #ccc; 
     border-radius: 4px; 
-
 }
 
 button {
-    background-color: #4CAF50;
+    background-color: #4f2ec5;
     color: white;
     padding: 10px 15px;
     border: none;
@@ -44,10 +44,16 @@ button {
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #848feb; 
 }
-
 .message {
+    position: fixed;
+    margin: -80px 400px;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    background-color: #e7f3fe;
+}
+.message-upload {
     position: fixed;
     margin: 70px 400px;
     padding: 10px 15px;
@@ -56,14 +62,22 @@ button:hover {
 }
 
 a {
-    display: inline-block;
-    margin-top: 20px;
-    color: #1a73e8;
+    position: absolute;
+    top: 0; 
+    right: 0; 
+    margin: 10px; 
+    padding: 10px 20px; 
+    background-color: #4f2ec5; 
+    color: white;
     text-decoration: none;
+    border: none;
+    border-radius: 5px; 
+    cursor: pointer; 
 }
 
 a:hover {
-    text-decoration: underline;
+    background-color: #848feb; 
+    text-decoration: none; 
 }
 
 .extension-label {
@@ -82,7 +96,7 @@ a:hover {
 }
 
 .extension-item {
-    display: flex; /* Flexbox 사용 */
+    display: flex; 
     align-items: center; 
     flex: 0 1 auto; /* 항목 크기를 자동으로 조정 */
     padding: 5px;
@@ -93,18 +107,17 @@ a:hover {
     font-size: 15pt;
 }
 .delete-button {
-    margin-left: 5px; 
-    margin-top: 3px;
+    float:right;
     background-color: #ffffff00; 
     border: none;
     color: rgb(0, 0, 0);
     padding: 2px 6px;
     cursor: pointer;
-    font-size: 8pt;
+    font-size: 13pt;
 }
 
 .delete-button:hover {
-    background-color: #706f6f; 
+    background-color: #c5c5c5; 
 }
 .large-checkbox {
     width: 15px;
